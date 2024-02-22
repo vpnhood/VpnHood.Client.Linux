@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>VpnHoodClient</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SharpPcap" Version="6.2.5" />
+    <PackageReference Include="VpnHood.Client.App" Version="3.3.470" />
+    <PackageReference Include="VpnHood.Client.App.Resources" Version="3.3.470" />
+    <PackageReference Include="VpnHood.Client.App.WebServer" Version="3.3.470" />
+    <PackageReference Include="VpnHood.Client.Device" Version="3.3.470" />
+  </ItemGroup>
+
+</Project>
