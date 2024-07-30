@@ -6,6 +6,7 @@ using SharpPcap;
 using VpnHood.Client.Device;
 using VpnHood.Common.Logging;
 using VpnHood.Common.Net;
+using ProtocolType = PacketDotNet.ProtocolType;
 
 namespace VpnHood.Client.Linux.Device;
 
@@ -13,8 +14,8 @@ public class LinuxPacketCapture : IPacketCapture
 {
     private bool _disposed;
     private IpNetwork[]? _includeNetworks;
-    public event EventHandler<PacketReceivedEventArgs>? OnPacketReceivedFromInbound;
-    public event EventHandler? OnStopped;
+    public event EventHandler<PacketReceivedEventArgs>? PacketReceivedFromInbound;
+    public event EventHandler? Stopped;
 
     public bool Started => false;
     public virtual bool CanSendPacketToOutbound => true;
@@ -34,7 +35,7 @@ public class LinuxPacketCapture : IPacketCapture
             $"{nameof(ProtectSocket)} is not supported by {GetType().Name}");
     }
 
-    public void SendPacketToInbound(IEnumerable<IPPacket> ipPackets)
+    public void SendPacketToInbound(IList<IPPacket> ipPackets)
     {
         foreach (var ipPacket in ipPackets)
             SendPacketToInbound(ipPacket);
@@ -50,7 +51,7 @@ public class LinuxPacketCapture : IPacketCapture
         SendPacket(ipPacket, true);
     }
 
-    public void SendPacketToOutbound(IEnumerable<IPPacket> ipPackets)
+    public void SendPacketToOutbound(IList<IPPacket> ipPackets)
     {
         foreach (var ipPacket in ipPackets)
             SendPacket(ipPacket, true);
@@ -85,7 +86,7 @@ public class LinuxPacketCapture : IPacketCapture
         if (!Started)
             return;
 
-        OnStopped?.Invoke(this, EventArgs.Empty);
+        Stopped?.Invoke(this, EventArgs.Empty);
         throw new NotImplementedException();
     }
 
@@ -115,7 +116,7 @@ public class LinuxPacketCapture : IPacketCapture
         try
         {
             var eventArgs = new PacketReceivedEventArgs([ipPacket], this);
-            OnPacketReceivedFromInbound?.Invoke(this, eventArgs);
+            PacketReceivedFromInbound?.Invoke(this, eventArgs);
         }
         catch (Exception ex)
         {
@@ -140,6 +141,7 @@ public class LinuxPacketCapture : IPacketCapture
     }
 
     public bool IsMtuSupported => false;
+    public bool? IsInProcessPacket(ProtocolType protocol, IPEndPoint localEndPoint, IPEndPoint remoteEndPoint) => null;
 
     public int Mtu
     {

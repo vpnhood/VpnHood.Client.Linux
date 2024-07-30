@@ -20,12 +20,13 @@ internal class Program
             // initialize VpnHoodApp
             VpnHoodApp.Init(new LinuxDevice(), new AppOptions
             {
-                Resources = VpnHoodAppResource.Resources
+                Resource = DefaultAppResource.Resource,
+                AccessKeys = [ClientOptions.SampleAccessKey]
             });
 
             // initialize SPA
-            ArgumentNullException.ThrowIfNull(VpnHoodAppResource.Resources.SpaZipData);
-            using var spaResource = new MemoryStream(VpnHoodAppResource.Resources.SpaZipData);
+            ArgumentNullException.ThrowIfNull(VpnHoodApp.Instance.Resource.SpaZipData);
+            using var spaResource = new MemoryStream(VpnHoodApp.Instance.Resource.SpaZipData);
             var webServer = VpnHoodAppWebServer.Init(spaResource);
             Console.WriteLine($"Navigate {webServer.Url} to open VpnHood Client.");
             await Task.Delay(TimeSpan.FromMinutes(60));

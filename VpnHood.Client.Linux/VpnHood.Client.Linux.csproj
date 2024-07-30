@@ -9,11 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SharpPcap" Version="6.2.5" />
-    <PackageReference Include="VpnHood.Client.App" Version="3.3.470" />
-    <PackageReference Include="VpnHood.Client.App.Resources" Version="3.3.470" />
-    <PackageReference Include="VpnHood.Client.App.WebServer" Version="3.3.470" />
-    <PackageReference Include="VpnHood.Client.Device" Version="3.3.470" />
+    <PackageReference Include="SharpPcap" Version="6.3.0" />
+    <PackageReference Include="VpnHood.Client.App" Version="4.6.551" />
+    <PackageReference Include="VpnHood.Client.App.Resources" Version="4.6.551" />
+    <PackageReference Include="VpnHood.Client.App.WebServer" Version="4.6.551" />
+    <PackageReference Include="VpnHood.Client.Device" Version="4.6.551" />
   </ItemGroup>
 
 </Project>
